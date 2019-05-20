@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon May 20 16:00:24 2019
+
+@author: k32
+"""
+
+from scipy.stats import norm
+
+
+# == Set parameters == #
+n = 250                  # Choice of n
+k = 100000               # Number of draws of Y_n
+distribution = expon(2)  # Exponential distribution, λ = 1/2
+μ, s = distribution.mean(), distribution.std()
+
+# == Draw underlying RVs. Each row contains a draw of X_1,..,X_n == #
+data = distribution.rvs((k, n))
+# == Compute mean of each row, producing k draws of \bar X_n == #
+sample_means = data.mean(axis=1)
+# == Generate observations of Y_n == #
+Y = np.sqrt(n) * (sample_means - μ)
+
+# == Plot == #
+fig, ax = plt.subplots(figsize=(10, 6))
+xmin, xmax = -3 * s, 3 * s
+ax.set_xlim(xmin, xmax)
+ax.hist(Y, bins=60, alpha=0.5, density=True)
+xgrid = np.linspace(xmin, xmax, 200)
+ax.plot(xgrid, norm.pdf(xgrid, scale=s), 'k-', lw=2, label='$N(0, \sigma^2)$')
+ax.legend()
+
+plt.show()
