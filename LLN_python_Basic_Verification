@@ -1,0 +1,23 @@
+import numpy as np
+from numpy.random import rand
+s=0
+a=0
+n=0
+c=0
+ip = int(input ("Enter Number of trials :-  "))
+def reset():
+    s=0
+    a=0
+    n=0
+    c=0
+while n <ip:
+    reset()
+    x=rand()
+    #print(x)
+    if x >-1 and x < 1:
+          s=s+x
+          c=c+1
+          #print(x)
+    n=n+1
+a=s/c
+print("Average for x < 1 and x >-1 =",a,"&& no of counts = ",c,"  && Number of trials = ",n)
